@@ -1,0 +1,82 @@
+"use client";
+import "./globals.css";
+
+import { FileInfoContext } from "@/context/FileInfoContext";
+import FileInfoContextProvider from "@/context/FileInfoContext";
+import { Vortex } from "../components/landing/vortex";
+import SignupFormDemo from "../components/landing/mainform/signupForm";
+import { useContext } from "react";
+import Post from "../components/markdown/Post";
+import Header from "../components/Header";
+
+function Main() {
+  const { responseGen }: any = useContext(FileInfoContext);
+
+  return (
+    <>
+    <Header/>
+      <Vortex
+        backgroundColor="black"
+        rangeY={800}
+        particleCount={300}
+        baseHue={120}
+        className={
+          responseGen
+            ? "flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-4 w-full h-[95vh]"
+            : "flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-4 w-full h-screen"
+        }
+      >
+        <div className="flex flex-col items-start gap-10 z-10 md:w-1/2 ml-10">
+          <h2 className="text-white text-4xl md:text-6xl font-bold leading-tight">
+            Automate Blockchain Security with Cutting-Edge
+            <span className="ml-3">
+              <h2 className="bg-gradient-to-r from-blue-300 to-red-400 inline-block text-transparent bg-clip-text">
+                AI
+              </h2>
+            </span>
+          </h2>
+          <p className="text-white text-lg md:text-2xl ">
+            Voltius revolutionizes DeFi with AI-powered smart contract
+            verification, delivering unparalleled blockchain integrity and
+            trust.
+          </p>
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
+              <a href="https://docsend.com/view/9jgbtiig65yamrew">Whitepaper</a>
+            </button>
+            <a
+              href="https://voltius.ai/#"
+              className="px-4 py-2 text-white hover:underline"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+
+        <div className="z-10 md:w-1/2">
+          <SignupFormDemo />
+        </div>
+      </Vortex>
+      {responseGen !== "" && (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="relative shadow-xl bg-neutral-950 border border-gray-800 px-4 py-8 w-[90rem] rounded-2xl flex flex-col justify-end items-start">
+            <p className="font-bolder text-large text-gray-500 relative z-50">
+              Our Analysis
+            </p>
+            <div className="w-full">
+              <Post words={responseGen} />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <FileInfoContextProvider>
+      <Main></Main>
+    </FileInfoContextProvider>
+  );
+}
