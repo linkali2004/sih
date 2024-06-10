@@ -27,7 +27,7 @@ const SignupFormDemo = React.memo(() => {
     const formData = new FormData();
     formData.append('datauri', file);
     formData.append('filename', filename);
-    return axios.post('http://localhost:3001/voltias', formData);
+    return axios.post(`${process.env.NEXT_PUBLIC_API_URL}voltias`, formData);
   }, []);
 
   const handleAnalyzeClick = useCallback((filename) => {
