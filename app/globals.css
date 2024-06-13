@@ -72,7 +72,3 @@ button.icon {
   right: 1rem;
   z-index: 5;
 }
-
-html, body {
-  overflow: hidden;
-}
