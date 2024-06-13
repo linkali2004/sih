@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 const Post = ({ words }) => {
   useEffect(() => {
     window.scrollBy({
-      top: 800,
+      top: 500,
       behavior: "smooth",
     });
   }, []);
