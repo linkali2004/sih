@@ -26,14 +26,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-app.post('/upload', upload.single('file'), (req, res) => {
-  console.log(req.file);
-  setTimeout(() => {
-    res.status(200).json({ message: 'File uploaded successfully', file: req.file });
-  }, 5000); 
-});
 
-// Helper function to create File from Base64
 function createFileFromBase64(dataURI, filename) {
   const base64Data = dataURI.split(',')[1];
   const binaryData = atob(base64Data);
@@ -67,10 +60,6 @@ app.post('/voltias', upload.none() ,async (req, res) => {
 });
 
 
-const dir = './uploads';
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-}
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
