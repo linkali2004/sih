@@ -27,17 +27,21 @@ const SignupFormDemo = React.memo(() => {
 
   const createFileFromBase64 = (dataURI, filename) => {
     const base64Data = dataURI.split(',')[1];
-    const binaryData = atob(base64Data);
-    const buffer = Buffer.from(binaryData, 'binary');
-    return buffer;
+    const binaryData = window.atob(base64Data);
+    const arrayBuffer = new ArrayBuffer(binaryData.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < binaryData.length; i++) {
+      uint8Array[i] = binaryData.charCodeAt(i);
+    }
+    return new Blob([uint8Array], { type: 'application/octet-stream' });
   };
 
   const uploadFile = useCallback(async (file, filename) => {
     try {
-      const fileBuffer = createFileFromBase64(file, filename);
+      const fileBlob = createFileFromBase64(file, filename);
 
       const formData = new FormData();
-      formData.append('files', fileBuffer, { filename });
+      formData.append('files', fileBlob, filename);
 
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}`, formData, {
         headers: {
