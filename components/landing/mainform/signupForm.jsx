@@ -25,6 +25,7 @@ const SignupFormDemo = React.memo(() => {
     }, 3000);
   }, [setShowSnackbar]);
 
+  
   const createFileFromBase64 = (dataURI, filename) => {
     const base64Data = dataURI.split(',')[1];
     const binaryData = window.atob(base64Data);
@@ -43,11 +44,7 @@ const SignupFormDemo = React.memo(() => {
       const formData = new FormData();
       formData.append('files', fileBlob, filename);
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}`, formData, {
-        headers: {
-          ...formData.getHeaders()
-        }
-      });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}`, formData);
 
       return response;
     } catch (error) {
