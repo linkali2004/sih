@@ -58,17 +58,25 @@ function Main() {
         </div>
       </Vortex>
       {responseGen !== "" && (
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="relative shadow-xl bg-neutral-950 border border-gray-800 px-4 py-8 w-[90rem] rounded-2xl flex flex-col justify-end items-start">
-            <p className="font-bolder text-large text-gray-500 relative z-50">
-              Our Analysis
-            </p>
-            <div className="w-full">
-              <Post words={responseGen} />
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="w-full h-full flex items-center justify-center">
+    <div className="relative shadow-xl bg-neutral-950 border border-gray-800 px-4 py-8 w-[90rem] rounded-2xl flex flex-col justify-center items-center">
+      <div>
+
+    <span className="absolute mx-auto py-1 flex border bg-gradient-to-r blur-xl from-blue-500 via-teal-500 to-pink-500 bg-clip-text text-6xl box-content font-extrabold text-transparent text-center">
+    Our Analysis
+  </span>
+    <h1
+        className="relative top-0 w-fit h-auto py-4 justify-center flex bg-gradient-to-r items-center from-blue-500 via-teal-500 to-pink-500 bg-clip-text text-6xl font-extrabold text-transparent text-center select-auto">
+        Our Analysis
+    </h1>
+
+      </div>
+      <div className="w-full">
+        <Post words={responseGen} />
+      </div>
+    </div>
+  </div>
+)}
     </>
   );
 }

@@ -46,7 +46,7 @@ export const ProduceReport = ({report,setReport,handleAnalyzeClick,fileInfo}) =>
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
           <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center">
             <IconPrompt className="mr-2" />
-            <span>Produce Report</span>
+            <span>View Analysis</span>
           </div>
         </button>
       </div>

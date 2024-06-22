@@ -22,6 +22,10 @@ module.exports = {
         "meteor-effect": "meteor 5s linear infinite",
       },
       keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
         shimmer: {
           from: {
             backgroundPosition: "0 0",
