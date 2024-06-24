@@ -17,7 +17,7 @@ function Main() {
       <Header />
       <Vortex
         backgroundColor="black"
-        rangeY={800}
+        rangeY={8000}
         particleCount={300}
         className={
           "flex flex-row md:flex-row items-center justify-between px-4 md:px-10 py-4 w-full"
