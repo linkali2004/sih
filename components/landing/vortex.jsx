@@ -220,7 +220,7 @@ export const Vortex = (props) => {
         ref={containerRef}
         className="absolute h-full w-full inset-0 z-0 bg-transparent flex items-center justify-center"
       >
-        <canvas ref={canvasRef}></canvas>
+        <canvas className="h-[100%]" ref={canvasRef}></canvas>
       </motion.div>
 
       <div className={cn("relative z-10", props.className)}>
