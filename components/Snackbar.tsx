@@ -4,8 +4,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { FileInfoContext } from '@/context/FileInfoContext';
 
-export default function SimpleSnackbar() {
-    const { setShowSnackbar,showSnackbar}:any = React.useContext(FileInfoContext);
+interface SnackbarProps {
+  message: string;
+  color: string;
+}
+
+const SimpleSnackbar: React.FC<SnackbarProps> = ({ message, color }) => {
+  const { setShowSnackbar, showSnackbar }: any = React.useContext(FileInfoContext);
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -30,14 +35,16 @@ export default function SimpleSnackbar() {
 
   return (
     <Snackbar
-    open={showSnackbar}
-    autoHideDuration={6000}
-    onClose={handleClose}
-    message="File Uploaded Successfully"
-    action={action}
-    ContentProps={{
-      sx: { backgroundColor: '#0f766e' }
-    }}
-  />
+      open={showSnackbar}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      message={message}
+      action={action}
+      ContentProps={{
+        sx: { backgroundColor: color }
+      }}
+    />
   );
-}
+};
+
+export default SimpleSnackbar;

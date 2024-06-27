@@ -15,17 +15,19 @@ const SignupFormDemo = React.memo(() => {
   const { fileInfo, setFileInfo, setShowSnackbar, showSnackbar, setResponseGen, responseGen } = useContext(FileInfoContext);
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState(false);
+  const [message, setMessage] = useState({ text: "", color: "" });
   let timer;
   const fileInputRef = useRef(null);
 
-  const handleShowSnackbar = useCallback(() => {
+  const handleShowSnackbar = useCallback((text, color) => {
+    setMessage({ text, color });
     setShowSnackbar(true);
     setTimeout(() => {
       setShowSnackbar(false);
+      setMessage({ text: "", color: "" });
     }, 3000);
   }, [setShowSnackbar]);
 
-  
   const createFileFromBase64 = (dataURI, filename) => {
     const base64Data = dataURI.split(',')[1];
     const binaryData = window.atob(base64Data);
@@ -44,7 +46,7 @@ const SignupFormDemo = React.memo(() => {
       const formData = new FormData();
       formData.append('files', fileBlob, filename);
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}`, formData);
+      const response = await axios.post('https://api.voltius.ai/uploadfiles/', formData);
 
       return response;
     } catch (error) {
@@ -76,12 +78,24 @@ const SignupFormDemo = React.memo(() => {
     if (file) {
       const fileSizeInBytes = file.size;
       const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(4);
+      const fileExtension = file.name.split('.').pop();
+
+      if (fileExtension !== "sol") {
+        handleShowSnackbar("Only .sol files are allowed.", "#D70040");
+        setLoading(false);
+        return;
+      }
+
+      if (fileSizeInBytes > 50 * 1024 * 1024) { // 50 MB
+        handleShowSnackbar("File size exceeds 50 MB limit.", "#D70040");
+        setLoading(false);
+        return;
+      }
+
       const reader = new FileReader();
 
       reader.onload = async () => {
         const base64 = reader.result;
-        const formData = new FormData();
-        formData.append('file', file);
 
         setFileInfo({
           name: file.name,
@@ -94,8 +108,8 @@ const SignupFormDemo = React.memo(() => {
           setLoading(false);
           sessionStorage.setItem(file.name, base64);
           console.log('File uploaded successfully');
-          handleShowSnackbar();
-        },4000);
+          handleShowSnackbar("File uploaded successfully", "#0f766e");
+        }, 4000);
       };
 
       reader.readAsDataURL(file);
@@ -126,7 +140,7 @@ const SignupFormDemo = React.memo(() => {
             <div className="max-w-md w-full mx-auto p-4 flex justify-center items-center">
               <CircularProgress />
             </div>
-          ) : fileInfo.name !== "" && responseGen === "" ? (
+          ) : fileInfo.name !== "" && responseGen === "" && !message.text ? (
             <div className="flex justify-center items-center flex-col p-4">
               <DescriptionIcon />
               <p className="text-neutral-600 text-sm max-w-sm mt-2 mx-auto text-center dark:text-neutral-300">
@@ -178,7 +192,7 @@ const SignupFormDemo = React.memo(() => {
               </div>
             </>
           )}
-          {fileInfo.name !== "" && responseGen === "" && !loading && (
+          {fileInfo.name !== "" && responseGen === "" && !loading && !message.text && (
             <>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[2px] w-full" />
               <div className="flex flex-col space-y-4">
@@ -193,7 +207,7 @@ const SignupFormDemo = React.memo(() => {
           )}
         </form>
       </div>
-      {showSnackbar && <Snackbar />}
+      {showSnackbar && <Snackbar message={message.text} color={message.color} />}
     </BackgroundGradient>
   );
 });
