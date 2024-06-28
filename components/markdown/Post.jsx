@@ -13,7 +13,7 @@ const Post = ({ words }) => {
   }, []);
 
   return (
-    <div className="post-container bg-black text-white p-4 rounded-2xl">
+    <div className="bg-black text-white p-4 rounded-2xl">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
