@@ -211,7 +211,6 @@ export const Vortex = (props) => {
       }
     });
   }, []);
-
   return (
     <div className={cn("relative h-full w-full", props.containerClassName)}>
       <motion.div
@@ -220,7 +219,7 @@ export const Vortex = (props) => {
         ref={containerRef}
         className="absolute h-full w-full inset-0 z-0 bg-transparent flex items-center justify-center"
       >
-        <canvas className="h-[100%]" ref={canvasRef}></canvas>
+        <canvas ref={canvasRef}></canvas>
       </motion.div>
 
       <div className={cn("relative z-10", props.className)}>

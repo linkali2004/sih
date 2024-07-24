@@ -7,7 +7,7 @@ import { FileInfoContext } from "@/context/FileInfoContext";
 import { CircularProgress } from "@mui/material";
 import { ProduceReport } from "../producereport";
 import DescriptionIcon from '@mui/icons-material/Description';
-import { IconUpload } from "@tabler/icons-react";
+import { IconPrompt, IconUpload } from "@tabler/icons-react";
 import FormData from 'form-data';
 import { atob } from 'atob';
 
@@ -66,9 +66,10 @@ const SignupFormDemo = React.memo(() => {
         })
         .catch(error => {
           console.error('Error uploading file:', error);
+          handleShowSnackbar("Error uploading file", "#D70040");
         });
     }
-  }, [uploadFile, setResponseGen]);
+  }, [uploadFile, setResponseGen, handleShowSnackbar]);
 
   const handleFileChange = async (event) => {
     clearTimeout(timer);
@@ -104,11 +105,10 @@ const SignupFormDemo = React.memo(() => {
           dateModified: new Date(file.lastModified),
           base64,
         });
-        timer = setTimeout(()=>{
+        timer = setTimeout(() => {
           setLoading(false);
           sessionStorage.setItem(file.name, base64);
           console.log('File uploaded successfully');
-          handleShowSnackbar("File uploaded successfully", "#0f766e");
         }, 4000);
       };
 
@@ -120,27 +120,35 @@ const SignupFormDemo = React.memo(() => {
     fileInputRef.current?.click();
   }, []);
 
+  const handleReupload = useCallback(() => {
+    setFileInfo({
+      name: "",
+      size: "",
+      dateUploaded: null,
+      dateModified: null,
+      base64: "",
+    });
+    setResponseGen("");
+    triggerUpload();
+  }, [setFileInfo, setResponseGen, triggerUpload]);
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     console.log("Form submitted");
   }, []);
 
   return (
-    <BackgroundGradient containerClassName="mx-auto max-w-md w-full">
-      <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <BackgroundGradient containerClassName="mx-auto max-w-md w-full p-[5px] mb-3">
+      <div className="max-w-md w-full mx-auto rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
         <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200 text-center">
           Upload Your Contract
         </h2>
-        <p className="text-neutral-600 text-sm max-w-sm mt-2 mx-auto text-center dark:text-neutral-300">
-          for thorough security analysis and optimization report
-        </p>
-
         <form className="my-4" onSubmit={handleSubmit}>
           {loading ? (
             <div className="max-w-md w-full mx-auto p-4 flex justify-center items-center">
               <CircularProgress />
             </div>
-          ) : fileInfo.name !== "" && responseGen === "" && !message.text ? (
+          ) : fileInfo.name !== "" && responseGen === "" ? (
             <div className="flex justify-center items-center flex-col p-4">
               <DescriptionIcon />
               <p className="text-neutral-600 text-sm max-w-sm mt-2 mx-auto text-center dark:text-neutral-300">
@@ -195,13 +203,26 @@ const SignupFormDemo = React.memo(() => {
           {fileInfo.name !== "" && responseGen === "" && !loading && !message.text && (
             <>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[2px] w-full" />
-              <div className="flex flex-col space-y-4">
-                <ProduceReport
-                  report={report}
-                  setReport={setReport}
-                  handleAnalyzeClick={handleAnalyzeClick}
-                  fileInfo={fileInfo}
-                />
+              <div className="flex lg:flex-row flex-col gap-2 justify-center">
+                <div className="flex flex-col space-y-4">
+                  <button
+                    className="p-[2.2px] relative"
+                    onClick={handleReupload}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+                    <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center">
+                      <span>Reupload</span>
+                    </div>
+                  </button>
+                </div>
+                <div className="flex flex-col space-y-4">
+                  <ProduceReport
+                    report={report}
+                    setReport={setReport}
+                    handleAnalyzeClick={handleAnalyzeClick}
+                    fileInfo={fileInfo}
+                  />
+                </div>
               </div>
             </>
           )}

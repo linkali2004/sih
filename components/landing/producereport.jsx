@@ -40,11 +40,11 @@ export const ProduceReport = ({report,setReport,handleAnalyzeClick,fileInfo}) =>
       />
       <div className="flex flex-col space-y-4">
         <button
-          className="p-[4px] relative"
+          className="p-[2px] relative"
           onClick={() => handleAnalyzeClick(fileInfo.name)}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-          <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center">
+          <div className="px-6 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent flex items-center justify-center">
             <IconPrompt className="mr-2" />
             <span>View Analysis</span>
           </div>
