@@ -24,8 +24,8 @@ function Main() {
       >
         <div className="w-full mx-auto rounded-md sm:h-full lg:h-[100vh] flex flex-col md:gap-[5vh]">
           <Header />
-          <div className="flex flex-col lg:flex-row items-center md:gap-[5vh] h-full">
-            <div className="flex flex-col items-center md:items-start lg:gap-7 gap-6 z-10 w-full lg:w-1/2 lg:ml-10 mb-4 md:mt-0">
+          <div className="flex flex-col lg:flex-row items-center justify-center md:gap-[5vh] h-full">
+            <div className="flex flex-col items-center lg:gap-7 gap-6 z-10 w-full lg:w-1/2 mb-4 md:mt-0">
               {isMobile && <div className="mt-[4px]"></div>}
               <h2 className="text-white text-3xl md:text-3xl font-bold leading-tight text-center">
                 Automate Blockchain Security with Cutting Edge
@@ -35,12 +35,12 @@ function Main() {
                   </h2>
                 </span>
               </h2>
-              <p className="text-white text-lg md:text-xl text-center md:text-center">
+              <p className="text-white text-lg md:text-xl text-center">
                 Voltius revolutionizes DeFi with AI-powered smart contract
                 verification, delivering unparalleled blockchain integrity and
                 trust.
               </p>
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full justify-center">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
                 <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
                   <a href="https://docsend.com/view/9jgbtiig65yamrew">
                     Whitepaper
