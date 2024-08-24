@@ -1,8 +1,30 @@
 "use client";
 
-import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
-import { askChatbot } from "../app/api/chatbot"; // Import the API function
 import { useState } from "react";
+import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
+
+// Function to call the chatbot API
+async function askChatbot(question: string): Promise<string> {
+  try {
+    const response = await fetch("http://localhost:4000/api/chatbot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.response;
+  } catch (error) {
+    console.error("Error communicating with chatbot:", error);
+    throw error;
+  }
+}
 
 export function PlaceholdersAndVanishInputDemo() {
   const placeholders = [
@@ -36,16 +58,16 @@ export function PlaceholdersAndVanishInputDemo() {
       <h2 className="mb-10 sm:mb-20 text-xl text-center sm:text-5xl dark:text-white text-black">
         Ask Our ChatBot Anything Related To Drugs
       </h2>
+      {response && (
+        <div className="mt-4 p-4 bg-gray-100 rounded shadow mb-2">
+          <p className="text-lg">{response}</p>
+        </div>
+      )}
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
         onSubmit={onSubmit}
       />
-      {response && (
-        <div className="mt-4 p-4 bg-gray-100 rounded shadow">
-          <p className="text-lg">{response}</p>
-        </div>
-      )}
     </div>
   );
 }

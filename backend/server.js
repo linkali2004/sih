@@ -8,6 +8,8 @@ const cors = require('cors');
 const app = express();
 const PORT = 4000;
 
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 // Enable CORS for all routes
 app.use(cors());
 
@@ -19,6 +21,46 @@ const upload = multer({
       cb(null, `${Date.now()}-${file.originalname}`);
     },
   }),
+});
+
+app.post('/api/chatbot', (req, res) => {
+  const { question } = req.body;
+
+  try {
+    // Use path.resolve to get an absolute path to the Python script
+    const scriptPath = path.resolve('../scripts/chatbot.py');
+    
+    // Call the Python script, passing the question as an argument
+    const pythonProcess = spawn('py', [scriptPath, question]);
+
+    // Capture the output from the Python script
+    let scriptOutput = '';
+    let scriptError = '';
+
+    pythonProcess.stdout.on('data', (data) => {
+      scriptOutput += data.toString();
+      console.log(scriptOutput);
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      scriptError += data.toString();
+    });
+
+    // Handle when the script finishes execution
+    pythonProcess.on('close', (code) => {
+      console.log(`Python script finished with code ${code}`);
+
+      if (code === 0) {
+        res.status(200).json({ response: scriptOutput.trim() });
+      } else {
+        console.error(`Python script error output: ${scriptError}`);
+        res.status(500).json({ message: `Script error: ${scriptError}` });
+      }
+    });
+  } catch (error) {
+    console.error('Error processing request:', error);
+    res.status(500).json({ message: 'Failed to process the chatbot request' });
+  }
 });
 
 // Route to handle file upload and Python script execution
