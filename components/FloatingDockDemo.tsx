@@ -8,7 +8,7 @@ import {
   IconPlus
 } from "@tabler/icons-react";
 
-export function FloatingDockDemo() {
+export function FloatingDockDemo({handleClickOpen,handleChatOpen}:any) {
   const links = [
     {
       title: "Home",
@@ -21,14 +21,14 @@ export function FloatingDockDemo() {
     {
       title: "ChatBot",
       icon: (
-        <IconMessageChatbot className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconMessageChatbot onClick={handleChatOpen} className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#",
     },
     {
       title: "Add",
       icon: (
-        <IconPlus className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconPlus onClick={handleClickOpen} className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#",
     },

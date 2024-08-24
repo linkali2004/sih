@@ -14,7 +14,15 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ['aceternity.com',"assets.aceternity.com"], // This should be outside the headers function
+    domains: ['aceternity.com', 'assets.aceternity.com', 'images.unsplash.com'],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/chatbot',
+        destination: 'https://4880-2401-4900-3e4f-2c03-4dea-5580-9b89-2bd3.ngrok-free.app/chatbot', // Proxy to the external server
+      },
+    ];
   },
 };
 
