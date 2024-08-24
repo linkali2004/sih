@@ -1,12 +1,12 @@
 import React from "react";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import {
-  IconExchange,
+  IconForklift,
   IconHome,
-  IconTerminal2,
+  IconLogin,
+  IconMessageChatbot,
   IconPlus
 } from "@tabler/icons-react";
-import Image from "next/image";
 
 export function FloatingDockDemo() {
   const links = [
@@ -19,9 +19,9 @@ export function FloatingDockDemo() {
     },
 
     {
-      title: "Products",
+      title: "ChatBot",
       icon: (
-        <IconTerminal2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconMessageChatbot className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#",
     },
@@ -33,21 +33,16 @@ export function FloatingDockDemo() {
       href: "#",
     },
     {
-      title: "Aceternity UI",
+      title: "Inventory",
       icon: (
-        <Image
-          src="https://assets.aceternity.com/logo-dark.png"
-          width={20}
-          height={20}
-          alt="Aceternity Logo"
-        />
+        <IconForklift className="h-full w-full text-neutral-500 dark:text-neutral-300"></IconForklift>
       ),
       href: "#",
     },
     {
-      title: "Changelog",
+      title: "Signup",
       icon: (
-        <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconLogin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "#",
     },

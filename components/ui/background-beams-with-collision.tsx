@@ -20,6 +20,7 @@ export const BackgroundBeamsWithCollision = ({
       duration: 7,
       repeatDelay: 3,
       delay: 2,
+      className: "h-6 md:h-8 lg:h-10", // Adjusted for responsiveness
     },
     {
       initialX: 600,
@@ -27,13 +28,14 @@ export const BackgroundBeamsWithCollision = ({
       duration: 3,
       repeatDelay: 3,
       delay: 4,
+      className: "h-8 md:h-10 lg:h-12", // Adjusted for responsiveness
     },
     {
       initialX: 100,
       translateX: 100,
       duration: 7,
       repeatDelay: 7,
-      className: "h-6",
+      className: "h-6 md:h-8 lg:h-10", // Adjusted for responsiveness
     },
     {
       initialX: 400,
@@ -41,20 +43,21 @@ export const BackgroundBeamsWithCollision = ({
       duration: 5,
       repeatDelay: 14,
       delay: 4,
+      className: "h-10 md:h-12 lg:h-14", // Adjusted for responsiveness
     },
     {
       initialX: 800,
       translateX: 800,
       duration: 11,
       repeatDelay: 2,
-      className: "h-20",
+      className: "h-20 md:h-24 lg:h-28", // Adjusted for responsiveness
     },
     {
       initialX: 1000,
       translateX: 1000,
       duration: 4,
       repeatDelay: 2,
-      className: "h-12",
+      className: "h-12 md:h-16 lg:h-20", // Adjusted for responsiveness
     },
     {
       initialX: 1200,
@@ -62,7 +65,7 @@ export const BackgroundBeamsWithCollision = ({
       duration: 6,
       repeatDelay: 4,
       delay: 2,
-      className: "h-6",
+      className: "h-6 md:h-8 lg:h-10", // Adjusted for responsiveness
     },
   ];
 
@@ -70,8 +73,7 @@ export const BackgroundBeamsWithCollision = ({
     <div
       ref={parentRef}
       className={cn(
-        "h-96 md:h-[40rem] bg-gradient-to-b from-white to-neutral-100 dark:from-neutral-950 dark:to-neutral-800 relative flex items-center w-full justify-center overflow-hidden",
-        // h-screen if you want bigger
+        "h-screen bg-gradient-to-b from-white to-neutral-100 dark:from-neutral-950 dark:to-neutral-800 relative flex items-center w-full justify-center overflow-hidden",
         className
       )}
     >
@@ -200,7 +202,7 @@ const CollisionMechanism = React.forwardRef<
           repeatDelay: beamOptions.repeatDelay || 0,
         }}
         className={cn(
-          "absolute left-0 top-20 m-auto h-14 w-px rounded-full bg-gradient-to-t from-indigo-500 via-purple-500 to-transparent",
+          "absolute left-0 top-20 m-auto w-px rounded-full bg-gradient-to-t from-indigo-500 via-purple-500 to-transparent",
           beamOptions.className
         )}
       />
