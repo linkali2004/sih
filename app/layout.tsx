@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Voltius | Elevating Blockchain Integrity",
-  description: "REVOLUTIONIZING SMART CONTRACT SECURITY",
+  title: "Sushrut Aushadruchi",
+  description: "REVOLUTIONIZING DRUG INVENTORY WITH BLOCKCHAIN AND MACHINE LEARNING",
 };
 
 export default function RootLayout({
