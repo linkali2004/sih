@@ -4,11 +4,13 @@ import { FocusCardsDemo } from '@/components/FocusCardsDemo';
 import Modal from '@/components/Modals';
 import React from 'react'
 import { useAccount, useDisconnect} from 'wagmi'
+import { useCart } from "../../context/ChartContext";
 
 function MainPage() {
   const [open, setOpen] = React.useState(false);
   const[title,setTitle] = React.useState("");
   const[fileUploadTrue,setfileUploadTrue] = React.useState(false);
+  const { cartData } = useCart();
   const handleClickOpen = () => {
     setOpen(true);
     setfileUploadTrue(true);
@@ -25,7 +27,10 @@ function MainPage() {
   const { address } = useAccount()
   return (
     <div className="p-4 w-full h-full bg-dark flex flex-col">
-      <div className='w-full p-3 flex justify-end'>
+      <div className='w-full p-3 flex justify-end gap-2'>
+      <button className="shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-neutral-500 dark:border-neutral-500 dark:text-neutral-300 text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
+  {cartData}
+</button>
       <button className="shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-neutral-500 dark:border-neutral-500 dark:text-neutral-300 text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
   Manufacturer
 </button>
