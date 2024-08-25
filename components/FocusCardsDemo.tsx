@@ -1,32 +1,42 @@
+"use client";
+import { useEffect, useState } from "react";
 import { FocusCards } from "@/components/ui/focus-cards";
 
-export function FocusCardsDemo() {
-  const cards = [
-    {
-      title: "Forest Adventure",
-      src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Valley of life",
-      src: "https://images.unsplash.com/photo-1600271772470-bd22a42787b3?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Sala behta hi jayega",
-      src: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=3070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Camping is for pros",
-      src: "https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "The road not taken",
-      src: "https://images.unsplash.com/photo-1507041957456-9c397ce39c97?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "The First Rule",
-      src: "https://assets.aceternity.com/the-first-rule.png",
-    },
-  ];
+// Define the type for the card object
+interface Card {
+  title: string;
+  src: string;
+}
 
-  return <FocusCards cards={cards} />;
+export function FocusCardsDemo() {
+  const [cards, setCards] = useState<Card[]>([]);
+
+  useEffect(() => {
+    // Retrieve the cards array from local storage
+    const storedCards = localStorage.getItem("storedCards");
+
+    if (storedCards) {
+      console.log("Retrieved cards from local storage:", storedCards); // Debugging log
+      const parsedCards: Card[] = JSON.parse(storedCards);
+      console.log("Parsed cards:", parsedCards); // Debugging log
+      setCards(parsedCards);
+    }
+  }, []);
+
+  return (
+    <div>
+      {cards.length > 0 ? (
+        <FocusCards cards={cards} />
+      ) : (
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-300">
+            No images are available
+          </h2>
+          <p className="text-lg text-gray-500 dark:text-gray-400 mt-4">
+            Please upload an image to see it displayed here.
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }

@@ -3,6 +3,7 @@ import { FloatingDockDemo } from '@/components/FloatingDockDemo'
 import { FocusCardsDemo } from '@/components/FocusCardsDemo';
 import Modal from '@/components/Modals';
 import React from 'react'
+import { useAccount, useDisconnect} from 'wagmi'
 
 function MainPage() {
   const [open, setOpen] = React.useState(false);
@@ -21,7 +22,7 @@ function MainPage() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const { address } = useAccount()
   return (
     <div className="p-4 w-full h-full bg-dark flex flex-col">
       <div className='w-full p-3 flex justify-end'>
@@ -30,7 +31,7 @@ function MainPage() {
 </button>
       </div>
     <div className="h-full w-full">
-      <div className='bg-neutral-900 h-full w-full rounded-lg pt-[28px] pb-[28px]'>
+      <div className='bg-neutral-800 h-full w-full rounded-lg pt-[28px] pb-[28px]'>
         <FocusCardsDemo></FocusCardsDemo>
       </div>
     </div>

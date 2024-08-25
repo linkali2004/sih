@@ -7,7 +7,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { FileUploadDemo } from './FileUploadDemo';
 import { PlaceholdersAndVanishInputDemo } from './PlaceholdersAndVanishInputDemo';
 
@@ -20,12 +19,17 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function Modal({open,setOpen,handleClose,handleClickOpen,title,fileUploadTrue}:any) {
+export default function Modal({ open, setOpen, handleClose, handleClickOpen, title, fileUploadTrue }: any) {
+  
+  const handleCloseWithReload = () => {
+    handleClose(); // Close the modal
+    window.location.reload(); // Trigger a hard reload
+  };
 
   return (
     <React.Fragment>
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={handleCloseWithReload} // Use the modified close handler
         aria-labelledby="customized-dialog-title"
         open={open}
       >
@@ -34,7 +38,7 @@ export default function Modal({open,setOpen,handleClose,handleClickOpen,title,fi
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={handleCloseWithReload}
           sx={{
             position: 'absolute',
             right: 8,
@@ -45,14 +49,14 @@ export default function Modal({open,setOpen,handleClose,handleClickOpen,title,fi
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-       {fileUploadTrue? (<>
-        <FileUploadDemo></FileUploadDemo>
-       </>):(<>
-       <PlaceholdersAndVanishInputDemo></PlaceholdersAndVanishInputDemo>
-       </>)}
+          {fileUploadTrue ? (
+            <FileUploadDemo />
+          ) : (
+            <PlaceholdersAndVanishInputDemo />
+          )}
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleCloseWithReload}>
             Save changes
           </Button>
         </DialogActions>

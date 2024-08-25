@@ -58,16 +58,16 @@ export function PlaceholdersAndVanishInputDemo() {
       <h2 className="mb-10 sm:mb-20 text-xl text-center sm:text-5xl dark:text-white text-black">
         Ask Our ChatBot Anything Related To Drugs
       </h2>
-      {response && (
-        <div className="mt-4 p-4 bg-gray-100 rounded shadow mb-2">
-          <p className="text-lg">{response}</p>
-        </div>
-      )}
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
         onSubmit={onSubmit}
       />
+            {response && (
+        <div className="mt-4 p-4 bg-gray-100 rounded shadow mb-2">
+          <p className="text-lg">{response}</p>
+        </div>
+      )}
     </div>
   );
 }
