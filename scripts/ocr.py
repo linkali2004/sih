@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 genai.configure(
-    api_key="AIzaSyAeag4eROMoZYEpVrFBmiQNXLWyJucatL4"
+    api_key=""
 )
 model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat(history=[])
